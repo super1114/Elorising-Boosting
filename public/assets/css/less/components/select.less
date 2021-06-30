@@ -1,0 +1,154 @@
+//main: ../main.less
+
+.select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .popup-rank-select {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.6);
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      color: #101010;
+      background: #fff;
+      padding: 50px;
+      width: 900px;
+
+      .ranks {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        margin: 10px 30px;
+
+        button {
+          text-align: left;
+          background: rgba(0, 0, 0, 0);
+          border: 0px;
+          margin-top: 10px;
+          padding: 5px;
+          font-size: 1rem;
+          cursor: pointer;
+        } button:hover {
+          color: @main-color;
+        }
+
+        label {
+          text-align: left;
+          font-size: 1rem;
+          margin-top: 10px;
+          padding: 5px;
+          cursor: pointer;
+        } label:hover {
+          color: @main-color;
+        }
+        input[type="radio"] {
+          display: none;
+        }
+        input[type="radio"]:checked + label {
+          color: @main-color;
+        }
+      }
+    }
+  }
+
+  .ranks-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 850px;
+
+    .rank {
+      text-align: center;
+
+      label {
+        text-transform: uppercase;
+      }
+
+      .rank-select {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(13,30,48, 0.7);
+        width: 250px;
+        border-top: 3px solid @main-color;
+
+        .select-rank {
+          background: @main-color;
+          margin-top: 10px;
+          margin-bottom: 50px;
+          width: 280px;
+          padding: 10px;
+          font-size: 1.2rem;
+          font-weight: bold;
+          text-transform: uppercase;
+          position: relative;
+          cursor: pointer;
+
+          i {
+            font-size: 1.4rem;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            padding: 2px;
+          }
+
+          .shadow-left {
+            z-index: -1;
+            background: darken(@main-color, 20%);
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            bottom: -24px;
+            left: 0px;
+            -webkit-clip-path: polygon(100% 0, 0 0, 100% 100%);
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+          }
+          .shadow-right {
+            z-index: -1;
+            background: darken(@main-color, 20%);
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            bottom: -24px;
+            right: 0px;
+            -webkit-clip-path: polygon(100% 0, 0 0, 0 100%);
+            clip-path: polygon(100% 0, 0 0, 0 100%);
+          }
+        }
+      }
+    }
+
+    .flag-end {
+      background: rgba(13,30,48, 0.7);
+      width: 250px;
+      height: 100px;
+      -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 51% 20%, 0 100%, 0 0);
+      clip-path: polygon(50% 0%, 100% 0, 100% 100%, 51% 20%, 0 100%, 0 0);
+    }
+
+    .middle-icon {
+      flex: 1;
+      font-size: 6.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 400px;
+      opacity: 0.5;
+      color: @main-color;
+    }
+  }
+}

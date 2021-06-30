@@ -1,0 +1,56 @@
+{% extends "template/main.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+
+  <div class="review-container">
+
+    <h1>Customer <span>Reviews</span></h1>
+
+    {% if user.can_review != null %}
+      <br>
+      <form class="" action="{{ base_url() }}/addReview" method="post">
+        <input style="display: none;" type="text" name="orderId" value="{{ user.can_review }}">
+        <input style="display: none;" type="text" name="userId" value="{{ user.id }}">
+        <input style="display: none;" type="text" name="username" value="{{ user.username }}">
+        <textarea name="review_text" rows="4" cols="60" placeholder="Enter your review!"></textarea><br>
+
+        <p>Rating out of 5</p><br>
+        <label><span id="game_amount_label">3</span> / 5</label>
+        <input type="range" id="game_amount" name="stars" min="1" max="5" value="3" oninput="sliderUpdate();">
+        <br>
+
+        <button style="margin: 0px;" class="btn" type="submit" name="button">Post Review</button>
+      </form>
+      <br>
+    {% endif %}
+
+    <div class="reviews">
+      {% for review in reviews %}
+
+        <div class="review">
+
+          <div class="star-rating">
+            <i class="{% if review.stars >= 1 %}fas{% else %}fal{% endif %} fa-star"></i>
+            <i class="{% if review.stars >= 1 %}fas{% else %}fal{% endif %} fa-star"></i>
+            <i class="{% if review.stars >= 3 %}fas{% else %}fal{% endif %} fa-star"></i>
+            <i class="{% if review.stars >= 4 %}fas{% else %}fal{% endif %} fa-star"></i>
+            <i class="{% if review.stars >= 5 %}fas{% else %}fal{% endif %} fa-star"></i>
+            <p>{{ review.created_at|date("m/d/Y") }}</p>
+          </div>
+
+          <div class="text">
+            <h3>{{ review.getStartRank(review.orderId) }} - {{ review.getEndRank(review.orderId) }}</h3>
+            <p><strong>{{ review.getPrice(review.orderId) }}$</strong></p><br>
+            <p><i>"{{ review.review_text }}" - {{ review.username }}</i></p>
+          </div>
+
+        </div>
+
+      {% endfor %}
+    </div>
+
+  </div>
+
+{% endblock %}

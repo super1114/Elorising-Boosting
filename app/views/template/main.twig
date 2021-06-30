@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% block head %}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Elorising - {% block title %}{% endblock %}</title>
+
+      <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-oi8o31xSQq8S0RpBcb4FaLB8LJi9AT8oIdmS1QldR8Ui7KUQjNAnDlJjp55Ba8FG" crossorigin="anonymous">
+      <link rel="stylesheet" href="{{ base_url() }}/assets/css/main.css">
+    {% endblock %}
+  </head>
+  <body>
+
+
+
+    <div id="login">
+      <form class="" action="{{ base_url() }}/login" method="post">
+        <div class="inputs">
+          <div class="login-toggle">
+            <i class="fal fa-times"></i>
+          </div>
+          <h2>Login</h2>
+          <span class="error">{{ auth_fail }}</span>
+          <div class="input">
+            <i class="fal fa-user"></i><input type="text" name="username" placeholder="Username" autocomplete="off">
+            <label>Username</label>
+          </div>
+
+          <div class="input">
+            <i class="fal fa-unlock-alt"></i><input type="password" name="password" placeholder="Password" autocomplete="off">
+            <label>Password</label>
+          </div>
+          <a href="#forgot" class="forgot-toggle">Forgot your password?</a>
+          <button class="btn" type="submit">Login <i class="fal fa-sign-in-alt"></i></button>
+        </div>
+      </form>
+    </div>
+
+    <div id="forgot">
+      <form class="" action="{{ base_url() }}/forgotPassword" method="post">
+        <div class="inputs">
+          <div class="forgot-toggle">
+            <i class="fal fa-times"></i>
+          </div>
+          <h2>Forgot Password</h2>
+          <span class="error">{{ auth_fail }}</span>
+          <div class="input">
+            <i class="fal fa-at"></i><input type="email" name="mail" placeholder="Email" autocomplete="off">
+            <label>Your Email</label>
+          </div>
+          <button class="btn" type="submit">Send <i class="fal fa-sign-in-alt"></i></button>
+        </div>
+      </form>
+    </div>
+
+    <div id="change">
+      <form class="" action="{{ base_url() }}/changePassword" method="post">
+        <div class="inputs">
+          <h2>Change Password</h2>
+          <span class="error">{{ auth_fail }}</span>
+          <div class="input">
+            <i class="fal fa-at"></i><input type="password" name="password" placeholder="New Password" autocomplete="off">
+            <label>New Password</label>
+          </div>
+          <button class="btn" type="submit">Update <i class="fal fa-sign-in-alt"></i></button>
+        </div>
+      </form>
+    </div>
+
+    <div id="register">
+      <form class="" action="{{ base_url() }}/register" method="post">
+        <div class="inputs">
+          <div class="register-toggle">
+            <i class="fal fa-times"></i>
+          </div>
+          <h2>Register</h2>
+          <span class="error">{{ auth_fail }}</span>
+          <div>
+            <div>
+              <div class="input">
+                <i class="fal fa-user"></i><input type="text" name="username" placeholder="Username" autocomplete="off">
+                <label>Username</label>
+              </div>
+
+              <div class="input">
+                <i class="fal fa-unlock-alt"></i><input type="password" name="password" placeholder="Password" autocomplete="off">
+                <label>Password</label>
+              </div>
+
+              <div class="input">
+                <i class="fal fa-unlock-alt"></i><input type="password" name="password_confirm" placeholder="Password Confirm" autocomplete="off">
+                <label>Password Confirm</label>
+              </div>
+            </div>
+
+            <div>
+              <div class="input">
+                <i class="fal fa-at"></i><input type="email" name="email" placeholder="Email" autocomplete="nope">
+                <label>Email</label>
+              </div>
+
+              <div class="input">
+                <i class="fab fa-skype"></i><input type="text" name="skype" placeholder="Skype" autocomplete="off">
+                <label>Skype</label>
+              </div>
+
+              <div class="input">
+                <i class="fab fa-discord"></i><input type="text" name="discord" placeholder="Discord" autocomplete="off">
+                <label>Discord</label>
+              </div>
+            </div>
+          </div>
+          <button class="btn" type="submit">Register <i class="fal fa-user-plus"></i></button>
+        </div>
+      </form>
+    </div>
+
+    {% block header %}
+
+      <header>
+
+        <div class="topbar">
+          <div class="social">
+            <i class="fab fa-facebook-square"></i>
+            <i class="fab fa-twitter-square"></i>
+            <i class="fab fa-youtube-square"></i>
+          </div>
+          <div class="auth">
+            <ul>
+              {% if loggedin == false %}
+                <li><a style="cursor: pointer;" class="register-toggle" href="#register"> Register <i class="fal fa-user-edit"></i></a></li>
+                <li><a style="cursor: pointer;" class="login-toggle" href="#login"> Login <i class="fal fa-sign-in-alt"></i></a></li>
+              {% else %}
+
+                {% if user.user_type == "admin" %}
+                  <li><a href="{{ base_url() }}/admin-panel">Admin Panel<i class="fal fa-user"></i></a></li>
+                {% endif %}
+
+                {% if user.user_type == "booster" %}
+                  <li><a href="{{ base_url() }}/booster-panel">Booster Panel<i class="fal fa-user"></i></a></li>
+                {% endif %}
+
+                <li><a href="{{ base_url() }}/user/order">{{ user.username }} <i class="fal fa-user"></i></a></li>
+                <li><a href="{{ base_url() }}/user/order">My Order <i class="fal fa-cart-arrow-down"></i></a></li>
+                <li><a href="{{ base_url() }}/logout">Logout <i class="fal fa-sign-out"></i></a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+
+        <nav>
+          <div class="logo">
+            <a href="{{ base_url() }}"><img src="{{ base_url() }}/assets/img/logo.svg" alt=""></a>
+          </div>
+
+          <ul>
+            <li>
+              <a href="{{ base_url() }}/contact">CONTACT</a>
+            </li>
+            <li>
+              <a href="{{ base_url() }}/reviews">REVIEWS</a>
+            </li>
+            <div class="dropdown">
+              <li>
+                <a href="{{ base_url() }}/solo">BOOSTING</a>
+              </li>
+              <div class="dropdown-content">
+                <a href="{{ base_url() }}/solo">SOLO Queue</a>
+                <a href="{{ base_url() }}/duo">DUO Queue</a>
+                <a href="{{ base_url() }}/placements">Placement Games</a>
+                <a href="{{ base_url() }}/wins">Normal Wins</a>
+              </div>
+            </div>
+          </ul>
+        </nav>
+      </header>
+
+    {% endblock %}
+
+    <main>
+      <div class="container">
+
+        {% block main %}
+        {% endblock %}
+
+      </div>
+    </main>
+
+    {% block footer %}
+      <!--<footer>
+          Copyright © Boost App 2018
+      </footer>-->
+
+      <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <script src="{{ base_url() }}/assets/js/jquery-scripts.js" type="text/javascript"></script>
+      <script src="{{ base_url() }}/assets/js/select-image.js" type="text/javascript"></script>
+      <script src="{{ base_url() }}/assets/js/slide.js" type="text/javascript"></script>
+      <script src="{{ base_url() }}/assets/js/receipt.js" type="text/javascript"></script>
+      <script src="{{ base_url() }}/assets/js/referral.js" type="text/javascript"></script>
+      <script src="{{ base_url() }}/assets/js/price.js" type="text/javascript"></script>
+
+      {% block scripts %}{% endblock %}
+
+    {% endblock %}
+  </body>
+</html>

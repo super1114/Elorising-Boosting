@@ -1,0 +1,522 @@
+{% extends "template/main.twig" %}
+
+{% block title %}Solo Queue{% endblock %}
+
+{% block main %}
+
+  <div class="boost-price">
+
+    <form id="solo-boosting-form" action="{{ base_url() }}/order" method="post" onchange="javascript:updateReceipt();javascript:updatePrice();" autocomplete="off">
+
+      {% if loggedin == false %}
+
+        <h2>You have to Login or Register to make an order.</h2>
+        <div style="display: flex;">
+          <a href="#register" class="btn register-toggle">Register <i class="fal fa-user-edit"></i></a>
+          <a href="#login" class="btn login-toggle">Login <i class="fal fa-sign-in-alt"></i></a>
+        </div>
+
+      {% elseif activeOrder %}
+
+        <h2>You Already have a Active order!</h2>
+        <a href="{{ base_url() }}/user/order" class="btn">My Order <i class="fal fa-cart-arrow-down"></i></a>
+
+      {% else %}
+
+        <h1>Solo <span>Queue</span></h1>
+
+        <p class="price">Current Price: <span class="final-price">0$</span></p>
+        <p class="step">Step 1</p>
+
+        <input id="price-input" type="text" name="price" value="" style="display: none;">
+        <input type="text" name="order_type" value="solo" style="display: none;">
+        <input type="text" name="ordered_by" value="{{ user.id }}" style="display: none;">
+
+        <div class="ranking-selection">
+          <div id="slide1" class="select">
+
+            <div style="display:none;" id="current-rank-select" class="popup-rank-select" onchange="getPrice();">
+              <div class="container">
+                <div class="ranks">
+                  <h2>Bronze</h2>
+                  <input checked="checked" id="bronze_5" type="radio" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/bronze_5.png" name="currentRank" value="0"></input>
+                  <label for="bronze_5">Bronze V</label>
+                  <input type="radio" id="bronze_4" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/bronze_4.png" name="currentRank" value="1"></input>
+                  <label for="bronze_4">Bronze IV</label>
+                  <input type="radio" id="bronze_3" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/bronze_3.png" name="currentRank" value="2"></input>
+                  <label for="bronze_3">Bronze III</label>
+                  <input type="radio" id="bronze_2" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/bronze_2.png" name="currentRank" value="3"></input>
+                  <label for="bronze_2">Bronze II</label>
+                  <input type="radio" id="bronze_1" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/bronze_1.png" name="currentRank" value="4"></input>
+                  <label for="bronze_1">Bronze I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Silver</h2>
+                  <input type="radio" id="silver_5" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/silver_5.png" name="currentRank" value="5"></input>
+                  <label for="silver_5">Silver V</label>
+                  <input type="radio" id="silver_4" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/silver_4.png" name="currentRank" value="6"></input>
+                  <label for="silver_4">Silver IV</label>
+                  <input type="radio" id="silver_3" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/silver_3.png" name="currentRank" value="7"></input>
+                  <label for="silver_3">Silver III</label>
+                  <input type="radio" id="silver_2" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/silver_2.png" name="currentRank" value="8"></input>
+                  <label for="silver_2">Silver II</label>
+                  <input type="radio" id="silver_1" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/silver_1.png" name="currentRank" value="9"></input>
+                  <label for="silver_1">Silver I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Gold</h2>
+                  <input type="radio" id="gold_5" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/gold_5.png" name="currentRank" value="10"></input>
+                  <label for="gold_5">Gold V</label>
+                  <input type="radio" id="gold_4" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/gold_4.png" name="currentRank" value="11"></input>
+                  <label for="gold_4">Gold IV</label>
+                  <input type="radio" id="gold_3" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/gold_3.png" name="currentRank" value="12"></input>
+                  <label for="gold_3">Gold III</label>
+                  <input type="radio" id="gold_2" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/gold_2.png" name="currentRank" value="13"></input>
+                  <label for="gold_2">Gold II</label>
+                  <input type="radio" id="gold_1" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/gold_1.png" name="currentRank" value="14"></input>
+                  <label for="gold_1">Gold I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Platinum</h2>
+                  <input type="radio" id="platinum_5" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/platinum_5.png" name="currentRank" value="15"></input>
+                  <label for="platinum_5">Platinum V</label>
+                  <input type="radio" id="platinum_4" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/platinum_4.png" name="currentRank" value="16"></input>
+                  <label for="platinum_4">Platinum IV</label>
+                  <input type="radio" id="platinum_3" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/platinum_3.png" name="currentRank" value="17"></input>
+                  <label for="platinum_3">Platinum III</label>
+                  <input type="radio" id="platinum_2" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/platinum_2.png" name="currentRank" value="18"></input>
+                  <label for="platinum_2">Platinum II</label>
+                  <input type="radio" id="platinum_1" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/platinum_1.png" name="currentRank" value="19"></input>
+                  <label for="platinum_1">Platinum I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Diamond</h2>
+                  <input type="radio" id="diamond_5" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/diamond_5.png" name="currentRank" value="20"></input>
+                  <label for="diamond_5">Diamond V</label>
+                  <input type="radio" id="diamond_4" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/diamond_4.png" name="currentRank" value="21"></input>
+                  <label for="diamond_4">Diamond IV</label>
+                  <input type="radio" id="diamond_3" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/diamond_3.png" name="currentRank" value="22"></input>
+                  <label for="diamond_3">Diamond III</label>
+                  <input type="radio" id="diamond_2" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/diamond_2.png" name="currentRank" value="23"></input>
+                  <label for="diamond_2">Diamond II</label>
+                  <input type="radio" id="diamond_1" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/diamond_1.png" name="currentRank" value="24"></input>
+                  <label for="diamond_1">Diamond I</label>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:none;" id="desired-rank-select" class="popup-rank-select" onchange="getPrice();">
+              <div class="container">
+                <div class="ranks">
+                  <h2>Bronze</h2>
+                  <input checked="checked" id="bronze_5_2" type="radio" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/bronze_5.png" name="desiredRank" value="0"></input>
+                  <label for="bronze_5_2">Bronze V</label>
+                  <input type="radio" id="bronze_4_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/bronze_4.png" name="desiredRank" value="1"></input>
+                  <label for="bronze_4_2">Bronze IV</label>
+                  <input type="radio" id="bronze_3_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/bronze_3.png" name="desiredRank" value="2"></input>
+                  <label for="bronze_3_2">Bronze III</label>
+                  <input type="radio" id="bronze_2_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/bronze_2.png" name="desiredRank" value="3"></input>
+                  <label for="bronze_2_2">Bronze II</label>
+                  <input type="radio" id="bronze_1_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/bronze_1.png" name="desiredRank" value="4"></input>
+                  <label for="bronze_1_2">Bronze I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Silver</h2>
+                  <input type="radio" id="silver_5_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/silver_5.png" name="desiredRank" value="5"></input>
+                  <label for="silver_5_2">Silver V</label>
+                  <input type="radio" id="silver_4_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/silver_4.png" name="desiredRank" value="6"></input>
+                  <label for="silver_4_2">Silver IV</label>
+                  <input type="radio" id="silver_3_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/silver_3.png" name="desiredRank" value="7"></input>
+                  <label for="silver_3_2">Silver III</label>
+                  <input type="radio" id="silver_2_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/silver_2.png" name="desiredRank" value="8"></input>
+                  <label for="silver_2_2">Silver II</label>
+                  <input type="radio" id="silver_1_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/silver_1.png" name="desiredRank" value="9"></input>
+                  <label for="silver_1_2">Silver I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Gold</h2>
+                  <input type="radio" id="gold_5_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/gold_5.png" name="desiredRank" value="10"></input>
+                  <label for="gold_5_2">Gold V</label>
+                  <input type="radio" id="gold_4_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/gold_4.png" name="desiredRank" value="11"></input>
+                  <label for="gold_4_2">Gold IV</label>
+                  <input type="radio" id="gold_3_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/gold_3.png" name="desiredRank" value="12"></input>
+                  <label for="gold_3_2">Gold III</label>
+                  <input type="radio" id="gold_2_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/gold_2.png" name="desiredRank" value="13"></input>
+                  <label for="gold_2_2">Gold II</label>
+                  <input type="radio" id="gold_1_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/gold_1.png" name="desiredRank" value="14"></input>
+                  <label for="gold_1_2">Gold I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Platinum</h2>
+                  <input type="radio" id="platinum_5_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/platinum_5.png" name="desiredRank" value="15"></input>
+                  <label for="platinum_5_2">Platinum V</label>
+                  <input type="radio" id="platinum_4_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/platinum_4.png" name="desiredRank" value="16"></input>
+                  <label for="platinum_4_2">Platinum IV</label>
+                  <input type="radio" id="platinum_3_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/platinum_3.png" name="desiredRank" value="17"></input>
+                  <label for="platinum_3_2">Platinum III</label>
+                  <input type="radio" id="platinum_2_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/platinum_2.png" name="desiredRank" value="18"></input>
+                  <label for="platinum_2_2">Platinum II</label>
+                  <input type="radio" id="platinum_1_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/platinum_1.png" name="desiredRank" value="19"></input>
+                  <label for="platinum_1_2">Platinum I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Diamond</h2>
+                  <input type="radio" id="diamond_5_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/diamond_5.png" name="desiredRank" value="20"></input>
+                  <label for="diamond_5_2">Diamond V</label>
+                  <input type="radio" id="diamond_4_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/diamond_4.png" name="desiredRank" value="21"></input>
+                  <label for="diamond_4_2">Diamond IV</label>
+                  <input type="radio" id="diamond_3_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/diamond_3.png" name="desiredRank" value="22"></input>
+                  <label for="diamond_3_2">Diamond III</label>
+                  <input type="radio" id="diamond_2_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/diamond_2.png" name="desiredRank" value="23"></input>
+                  <label for="diamond_2_2">Diamond II</label>
+                  <input type="radio" id="diamond_1_2" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/diamond_1.png" name="desiredRank" value="24"></input>
+                  <label for="diamond_1_2">Diamond I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Master</h2>
+                  <input type="radio" id="master" onclick="flipDesired(this)" url="{{ base_url() }}/assets/img/ranks/master.png" name="desiredRank" value="25"></input>
+                  <label for="master">Master</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="ranks-select">
+
+              <div class="rank">
+                <label>Current Rank</label>
+                <div class="rank-select">
+
+                  <img id="currentRank" src="{{ base_url() }}/assets/img/ranks/bronze_5.png">
+
+                  <div class="select-rank current-rank-select-toggle">
+                    <p id="currentRank-text">Bronze V</p>
+                    <i class="fal fa-pencil-alt"></i>
+                    <div class="shadow-left"></div>
+                    <div class="shadow-right"></div>
+                  </div>
+                </div>
+                <div class="flag-end"></div>
+              </div>
+
+              <div class="middle-icon">
+                <i class="fal fa-angle-double-right"></i>
+              </div>
+
+              <div class="rank">
+                <label>Desired Rank</label>
+                <div class="rank-select desired-rank-select-toggle">
+
+                  <img id="desiredRank" src="{{ base_url() }}/assets/img/ranks/bronze_5.png">
+
+                  <div class="select-rank">
+                    <p id="desiredRank-text">Bronze V</p>
+                    <i class="fal fa-pencil-alt"></i>
+                    <div class="shadow-left"></div>
+                    <div class="shadow-right"></div>
+                  </div>
+                </div>
+                <div class="flag-end"></div>
+              </div>
+            </div>
+
+            <div class="buttons">
+              <button class="nextBtn disabled" type="button"><i class="fal fa-angle-left"></i> Go Back</button>
+              <button class="nextBtn step2text step2" type="button">Next Step <i class="fal fa-angle-right"></i></button>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="slide2" class="extra">
+
+          <ul>
+            <li id="dropdown1-click"><i class="fal fa-bolt"></i> Flash Spellposition <span>Price +5$</span></li>
+            <div id="dropdown1" class="extras-dropdown" style="display: block;">
+
+              <div class="lightswitch">
+                <label>Turn on this Option</label>
+                <label class="switch">
+                  <input type="checkbox" name="specific_spellposition">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+
+              <div class="flashes">
+                <div>
+                  <input type="radio" name="flash" id="flash_d" value="flash_d">
+                  <label class="flash-label" for="flash_d">Flash<br><strong>D</strong></label>
+                </div>
+                <div>
+                  <input type="radio" name="flash" id="flash_f" value="flash_f" checked="checked">
+                  <label class="flash-label" for="flash_f">Flash<br><strong>F</strong></label>
+                </div>
+              </div>
+
+            </div>
+
+            <li id="dropdown2-click"><i class="fal fa-star"></i> Favorite Champions <span>Price +10$</span> </i></li>
+            <div id="dropdown2" class="extras-dropdown">
+
+              <div class="lightswitch">
+                <label>Turn on this Option</label>
+                <label class="switch">
+                  <input type="checkbox" name="favorite_champs">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+
+              <div class="positions">
+                <div class="position">
+                  <select name="lane_priority_1">
+                    <option value="Top">Top</option>
+                    <option value="Mid">Mid</option>
+                    <option value="Jungle">Jungle</option>
+                    <option value="ADC">ADC</option>
+                    <option value="Support">Support</option>
+                  </select>
+                  <label>Champions</label>
+                  <input type="text" name="priority_1champion_1">
+                  <input type="text" name="priority_1champion_2">
+                  <input type="text" name="priority_1champion_3">
+                  <input type="text" name="priority_1champion_4">
+                  <input type="text" name="priority_1champion_5">
+                </div>
+                <div class="position">
+                  <select name="lane_priority_2">
+                    <option value="Top">Top</option>
+                    <option value="Mid">Mid</option>
+                    <option value="Jungle">Jungle</option>
+                    <option value="ADC">ADC</option>
+                    <option value="Support">Support</option>
+                  </select>
+                  <label>Champions</label>
+                  <input type="text" name="priority_2champion_1">
+                  <input type="text" name="priority_2champion_2">
+                  <input type="text" name="priority_2champion_3">
+                  <input type="text" name="priority_2champion_4">
+                  <input type="text" name="priority_2champion_5">
+                </div>
+                <div class="position">
+                  <select name="lane_priority_3">
+                    <option value="Top">Top</option>
+                    <option value="Mid">Mid</option>
+                    <option value="Jungle">Jungle</option>
+                    <option value="ADC">ADC</option>
+                    <option value="Support">Support</option>
+                  </select>
+                  <label>Champions</label>
+                  <input type="text" name="priority_3champion_1">
+                  <input type="text" name="priority_3champion_2">
+                  <input type="text" name="priority_3champion_3">
+                  <input type="text" name="priority_3champion_4">
+                  <input type="text" name="priority_3champion_5">
+                </div>
+              </div>
+            </div>
+
+            <li id="dropdown3-click"><i class="fal fa-clock"></i> Priority Completion <span>Price +10%</span> </i></li>
+            <div id="dropdown3" class="extras-dropdown">
+
+              <div class="lightswitch">
+                <label>Turn on this Option</label>
+                <label class="switch">
+                  <input type="checkbox" name="priority_completion">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+
+              <p>Are you looking for your order to be done as soon as possible. We will prioritise your order above those who are currently assigned and make sure this order is completed in a quicker time!</p>
+
+            </div>
+
+            <li id="dropdown4-click"><i class="fal fa-chart-line"></i> Coching Addon <span>Price +20$</span> </i></li>
+            <div id="dropdown4" class="extras-dropdown">
+
+              <div class="lightswitch">
+                <label>Turn on this Option</label>
+                <label class="switch">
+                  <input type="checkbox" name="coching">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+
+              <p>Add a 1 hour maximum coaching experience at a LCS level, normally priced at $30p/h. Learn to play at an elite level after your boost.</p>
+
+            </div>
+
+            <li id="dropdown5-click"><i class="fal fa-user-secret"></i> Appear Offlinemode <span>Price +10$</span> </i></li>
+            <div id="dropdown5" class="extras-dropdown">
+
+              <div class="lightswitch">
+                <label>Turn on this Option</label>
+                <label class="switch">
+                  <input type="checkbox" name="offlinemode">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+
+              <p>We have a specially designed program that turns you invisible! Do you want to be invisible to the people on your friends list? We can make it so know one can see you online! This feature does not cause your account to get banned.</p>
+
+            </div>
+
+            <li id="dropdown6-click"><i class="fal fa-handshake-alt"></i> Account Boosting Warranty <span>Price +10$</span> </i></li>
+            <div id="dropdown6" class="extras-dropdown">
+
+              <div class="lightswitch">
+                <label>Turn on this Option</label>
+                <label class="switch">
+                  <input type="checkbox" name="account_warranty">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+
+              <p>Do you want to feel secure in the case Riot bans your account? Even though our ban rate is virtually non existant at 0.0001% we offer a solution to put your mind at ease. If you get banned while we boost your account, we will level a free ultimate smurf and 10 placement games for you valued at $115. Terms and conditions apply.</p>
+
+            </div>
+          </ul>
+
+          <div class="buttons">
+            <button class="nextBtn step1text step1" type="button"><i class="fal fa-angle-left"></i> Go Back</button>
+            <button class="nextBtn step3text step3" type="button">Next Step <i class="fal fa-angle-right"></i></button>
+          </div>
+        </div>
+
+        <div id="slide3" class="checkout">
+
+          <div class="price-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Information</th>
+                  <th class="text-right">Quantity</th>
+                  <th class="text-right">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th colspan="4">Boosting</th>
+                </tr>
+                <tr>
+                  <td id="boosting_desc"></td>
+                  <td id="boosting_info"></td>
+                  <td class="text-right">1</td>
+                  <td class="text-right" id="boosting_price">0$</td>
+                </tr>
+                <tr>
+                  <th colspan="4">Extras</th>
+                </tr>
+                <tr class="receiptExtras" id="specific_spellposition_receipt">
+                  <td>Summoner Spellposition</td>
+                  <td></td>
+                  <td class="text-right">1</td>
+                  <td class="text-right">5$</td>
+                </tr>
+                <tr class="receiptExtras" id="favorite_champs_receipt">
+                  <td>Favorite Champions</td>
+                  <td></td>
+                  <td class="text-right">1</td>
+                  <td class="text-right">10$</td>
+                </tr>
+                <tr class="receiptExtras" id="apriority_completion_receipt">
+                  <td>Priority Completion</td>
+                  <td></td>
+                  <td class="text-right">1</td>
+                  <td class="text-right">0$</td>
+                </tr>
+                <tr class="receiptExtras" id="coching_receipt">
+                  <td>Coching Addon</td>
+                  <td></td>
+                  <td class="text-right">1</td>
+                  <td class="text-right">20$</td>
+                </tr>
+                <tr class="receiptExtras" id="offlinemode_receipt">
+                  <td>Appear Offlinemode</td>
+                  <td></td>
+                  <td class="text-right">1</td>
+                  <td class="text-right">10$</td>
+                </tr>
+                <tr class="receiptExtras" id="account_warranty_receipt">
+                  <td>Account Warranty</td>
+                  <td></td>
+                  <td class="text-right">1</td>
+                  <td class="text-right">10$</td>
+                </tr>
+                <tr>
+                  <th colspan="4">Total</th>
+                </tr>
+                <tr>
+                  <td colspan="3">Total:</td>
+                  <td class="text-right table-price"><span class="final-price">0$</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="color: #42a030;">Coupon code: <strong>elorising</strong> for 10% of.</p>
+          <div class="referral">
+            <input type="text" name="referral_code" value="" placeholder="Referral Code">
+            <button type="button" class="btn" name="button" onclick="checkReferral()">Apply Code</button>
+          </div>
+
+          <div id="paypal-button" class="paypal"></div>
+
+          <div class="buttons">
+            <button class="nextBtn step2text step2back" type="button"><i class="fal fa-angle-left"></i> Go Back</button>
+          </div>
+        </div>
+
+      {% endif %}
+
+    </form>
+  </div>
+  <span id="currentrankspan"></span>
+  <span id="currentdivisionspan"></span>
+  <span id="desiredrankspan"></span>
+  <span id="desireddivisionspan"></span>
+
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    paypal.Button.render({
+      env: 'sandbox',
+
+      commit: true,
+
+      style: {
+        color: 'blue',
+        size: 'large',
+        shape: 'rect',
+        label: 'checkout',
+      },
+
+      client: {
+        sandbox:    'AffGimQ0CRDttBEFjJ2f7lwa1e0mKBqk4zeFxq70b-pJt7BENI9zpSDRHpN-iQL34guoM8ApOvgkcozK',
+        production: 'xxxxxxxxx',
+      },
+
+      payment: function(data, actions) {
+        return actions.payment.create({
+          payment: { transactions: [{
+                amount: { total: fullPrice, currency: 'USD' }
+          }]}
+        });
+      },
+
+      onAuthorize: function(data, actions) {
+        return actions.payment.execute().then(function(payment) {
+          document.getElementById("solo-boosting-form").submit();
+        });
+      },
+
+      onCancel: function(data, actions) {
+
+      },
+
+      onError: function(err) {
+
+      }
+    }, '#paypal-button');
+  </script>
+{% endblock %}

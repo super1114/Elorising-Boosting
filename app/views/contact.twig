@@ -1,0 +1,30 @@
+{% extends "template/main.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+
+  <div class="contact-container">
+
+    <h1>Contact <span>us</span></h1>
+    <br>
+
+      <form action="{{ base_url() }}/mailContact" method="post">
+        <label>Category</label>
+        <select name="category">
+          <option value="Question">Question</option>
+          <option value="Order issue">Order issue</option>
+          <option value="Coaching">Coaching</option>
+          <option value="Booster Recruitment">Booster Recruitment</option>
+          <option value="Other">Other</option>
+        </select>
+        <label>Email</label>
+        <input type="email" name="email" value="">
+        <label>Message</label>
+        <textarea name="message" rows="8" cols="80"></textarea>
+        <br>
+        <button style="margin: 0px; margin-top: 5px;" class="btn" type="submit" name="button">Send Message</button>
+      </form>
+  </div>
+
+{% endblock %}

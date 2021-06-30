@@ -1,0 +1,1443 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,800');
+@import url('https://rsms.me/inter/inter-ui.css');
+* {
+  padding: 0px;
+  margin: 0px;
+}
+body {
+  background: url('../img/background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Inter UI', sans-serif;
+  color: #101010;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+}
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+header .topbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 28px;
+  background: rgba(0, 0, 0, 0.35);
+}
+header .topbar .social {
+  flex: 1;
+}
+header .topbar .social i {
+  color: #fff;
+  font-size: 1rem;
+  margin-right: 15px;
+  opacity: 0.4;
+}
+header .topbar .auth ul {
+  list-style: none;
+  display: flex;
+}
+header .topbar .auth ul li {
+  padding: 5px 15px;
+}
+header .topbar .auth ul li a {
+  text-decoration: none;
+  color: #fff;
+  opacity: 0.7;
+  transition: 0.3s ease-in-out;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+header .topbar .auth ul li a i {
+  margin-left: 5px;
+}
+header .topbar .auth ul li a:hover {
+  opacity: 1;
+}
+header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+header nav .logo {
+  padding: 18px;
+}
+header nav .logo img {
+  width: 320px;
+}
+header nav h1 {
+  margin-left: 25px;
+}
+header nav h1 a {
+  color: #101010;
+  text-decoration: none;
+}
+header nav ul {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  list-style: none;
+  margin-right: 25px;
+}
+header nav ul .dropdown {
+  position: relative;
+  display: inline-block;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+header nav ul .dropdown-content {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 0px;
+  background: #fff;
+  min-width: 188px;
+  z-index: 1;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  border-top: 3px solid #00B7FF;
+}
+header nav ul .dropdown-content a {
+  color: #101010;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-weight: 700;
+  transition: 0.5s ease-in-out;
+  padding: 15px;
+  text-align: center;
+}
+header nav ul .dropdown-content a:hover {
+  color: #00B7FF;
+  background: rgba(0, 0, 0, 0.05);
+}
+header nav ul .dropdown:hover .dropdown-content {
+  display: block;
+}
+header nav ul li {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+header nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.3rem;
+  width: 150px;
+  text-align: center;
+}
+#login {
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+#login .inputs {
+  background: #fff;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  border-radius: 7px;
+  position: relative;
+}
+#login .inputs .login-toggle {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  cursor: pointer;
+}
+#login .inputs .login-toggle i {
+  font-size: 2rem;
+  color: #fff;
+}
+#login .inputs .btn {
+  margin-top: 30px;
+  padding: 1em;
+  border: 0px;
+  background: #00B7FF;
+  color: #fff;
+  transition: 0.4 ease-in-out;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 700;
+}
+#login .inputs .btn .fa-sign-in-alt {
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+#login .inputs .btn:hover {
+  background: #20a1eb;
+}
+#login .inputs .input {
+  position: relative;
+  flex: 45%;
+  margin: 1em;
+}
+#login .inputs .input i {
+  margin-right: 5px;
+  font-size: 1rem;
+  color: #20a1eb;
+}
+#login .inputs .input input {
+  border: 0px;
+  border-bottom: 1px solid #20a1eb;
+  position: relative;
+  padding: 7px;
+  padding-top: 20px;
+  font-size: 1rem;
+  width: 250px;
+}
+#login .inputs .input input:focus {
+  outline: none;
+}
+#login .inputs .input input:focus + label {
+  z-index: 2;
+  opacity: 1;
+  margin-bottom: 28px;
+}
+#login .inputs .input label {
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+  opacity: 0;
+  margin-bottom: 0px;
+  z-index: -1;
+  transition: all 0.5s ease-in-out;
+}
+#forgot {
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+#forgot .inputs {
+  background: #fff;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  border-radius: 7px;
+  position: relative;
+}
+#forgot .inputs .forgot-toggle {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  cursor: pointer;
+}
+#forgot .inputs .forgot-toggle i {
+  font-size: 2rem;
+  color: #fff;
+}
+#forgot .inputs .btn {
+  margin-top: 30px;
+  padding: 1em;
+  border: 0px;
+  background: #00B7FF;
+  color: #fff;
+  transition: 0.4 ease-in-out;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 700;
+}
+#forgot .inputs .btn .fa-sign-in-alt {
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+#forgot .inputs .btn:hover {
+  background: #20a1eb;
+}
+#forgot .inputs .input {
+  position: relative;
+  flex: 45%;
+  margin: 1em;
+}
+#forgot .inputs .input i {
+  margin-right: 5px;
+  font-size: 1rem;
+  color: #20a1eb;
+}
+#forgot .inputs .input input {
+  border: 0px;
+  border-bottom: 1px solid #20a1eb;
+  position: relative;
+  padding: 7px;
+  padding-top: 20px;
+  font-size: 1rem;
+  width: 250px;
+}
+#forgot .inputs .input input:focus {
+  outline: none;
+}
+#forgot .inputs .input input:focus + label {
+  z-index: 2;
+  opacity: 1;
+  margin-bottom: 28px;
+}
+#forgot .inputs .input label {
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+  opacity: 0;
+  margin-bottom: 0px;
+  z-index: -1;
+  transition: all 0.5s ease-in-out;
+}
+#change {
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  display: none;
+}
+#change .inputs {
+  background: #fff;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  border-radius: 7px;
+  position: relative;
+}
+#change .inputs .forgot-toggle {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  cursor: pointer;
+}
+#change .inputs .forgot-toggle i {
+  font-size: 2rem;
+  color: #fff;
+}
+#change .inputs .btn {
+  margin-top: 30px;
+  padding: 1em;
+  border: 0px;
+  background: #00B7FF;
+  color: #fff;
+  transition: 0.4 ease-in-out;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 700;
+}
+#change .inputs .btn .fa-sign-in-alt {
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+#change .inputs .btn:hover {
+  background: #20a1eb;
+}
+#change .inputs .input {
+  position: relative;
+  flex: 45%;
+  margin: 1em;
+}
+#change .inputs .input i {
+  margin-right: 5px;
+  font-size: 1rem;
+  color: #20a1eb;
+}
+#change .inputs .input input {
+  border: 0px;
+  border-bottom: 1px solid #20a1eb;
+  position: relative;
+  padding: 7px;
+  padding-top: 20px;
+  font-size: 1rem;
+  width: 250px;
+}
+#change .inputs .input input:focus {
+  outline: none;
+}
+#change .inputs .input input:focus + label {
+  z-index: 2;
+  opacity: 1;
+  margin-bottom: 28px;
+}
+#change .inputs .input label {
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+  opacity: 0;
+  margin-bottom: 0px;
+  z-index: -1;
+  transition: all 0.5s ease-in-out;
+}
+#register {
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+#register .inputs {
+  background: #fff;
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  border-radius: 7px;
+  position: relative;
+}
+#register .inputs div {
+  display: flex;
+}
+#register .inputs div div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+#register .inputs .register-toggle {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  cursor: pointer;
+}
+#register .inputs .register-toggle i {
+  font-size: 2rem;
+  color: #fff;
+}
+#register .inputs .btn {
+  margin-top: 30px;
+  padding: 1em;
+  border: 0px;
+  background: #00B7FF;
+  color: #fff;
+  transition: 0.4 ease-in-out;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 700;
+}
+#register .inputs .btn .fa-user-plus {
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+#register .inputs .btn:hover {
+  background: #20a1eb;
+}
+#register .inputs .input {
+  position: relative;
+  margin: 1em;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+#register .inputs .input i {
+  margin-right: 5px;
+  font-size: 1rem;
+  color: #20a1eb;
+}
+#register .inputs .input input {
+  border: 0px;
+  border-bottom: 1px solid #20a1eb;
+  position: relative;
+  padding: 7px;
+  padding-top: 20px;
+  font-size: 1rem;
+  width: 250px;
+}
+#register .inputs .input input:focus {
+  outline: none;
+}
+#register .inputs .input input:focus + label {
+  z-index: 2;
+  opacity: 1;
+  margin-bottom: 28px;
+}
+#register .inputs .input label {
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+  opacity: 0;
+  margin-bottom: 0px;
+  z-index: -1;
+  transition: all 0.5s ease-in-out;
+}
+.paypal-button-text {
+  display: none !important;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  width: 180px;
+  margin: 15px 15px;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  background: #fff;
+  border-radius: 1.3px;
+  border: 0.2px solid rgba(1, 1, 1, 0);
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  border: 0px solid rgba(0, 0, 0, 0);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #00b7ff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #fff;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  background: #fff;
+  border-radius: 1.3px;
+  border: 0px solid rgba(1, 1, 1, 0);
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  border: 0px solid rgba(0, 0, 0, 0);
+  height: 16px;
+  width: 16px;
+  border-radius: 50px;
+  background: #00b7ff;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #fff;
+  border: 0.2px solid rgba(1, 1, 1, 0);
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+}
+input[type=range]::-ms-fill-upper {
+  background: #fff;
+  border: 0.2px solid rgba(1, 1, 1, 0);
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  border: 1px solid rgba(0, 0, 0, 0);
+  height: 16px;
+  width: 16px;
+  border-radius: 50px;
+  background: #00b7ff;
+  cursor: pointer;
+  height: 8.4px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #fff;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #fff;
+}
+.btn {
+  margin: 1em;
+  text-decoration: none;
+  margin-top: 30px;
+  padding: 1em;
+  border: 0px;
+  background: #00B7FF;
+  color: #fff;
+  transition: 0.4 ease-in-out;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 700;
+}
+.btn i {
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+.btn:hover {
+  background: #20a1eb;
+}
+.referral {
+  display: flex;
+  align-items: center;
+  margin: 25px;
+}
+.referral input {
+  outline: none;
+  padding: 15px;
+  border: 0px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+}
+.referral .btn {
+  margin: 0px;
+}
+main {
+  padding: 50px 0px;
+  color: #fff;
+}
+main .container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+main .contact-container {
+  display: flex;
+  flex-direction: column;
+}
+main .contact-container h1 {
+  text-transform: uppercase;
+  text-align: center;
+}
+main .contact-container h1 span {
+  color: #00B7FF;
+}
+main .contact-container p {
+  text-align: center;
+}
+main .contact-container .contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+main .contact-container .info {
+  text-align: left;
+}
+main .contact-container form {
+  display: flex;
+  flex-direction: column;
+}
+main .contact-container form label {
+  margin-top: 30px;
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+main .contact-container form input {
+  outline: none;
+  padding: 15px;
+  border: 0px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+}
+main .contact-container form textarea {
+  outline: none;
+  padding: 15px;
+  border: 0px;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  background: rgba(0, 0, 0, 0.5);
+}
+main .contact-container form select {
+  border: 0 !important;
+  width: 200px;
+  font-size: 1rem;
+  color: #fff;
+  background: #00B7FF;
+  padding: 10px;
+}
+main .contact-container form select:focus {
+  outline: none;
+}
+main .contact-container form option {
+  padding: 10px;
+  border: 0px;
+  font-size: 1rem;
+}
+main .contact-container form option:hover {
+  background: #000;
+}
+main .contact-container form option:focus {
+  outline: none;
+}
+main .review-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+main .review-container h1 {
+  text-transform: uppercase;
+  text-align: center;
+}
+main .review-container h1 span {
+  color: #00B7FF;
+}
+main .review-container form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+main .review-container form input {
+  outline: none;
+  padding: 15px;
+  border: 0px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+}
+main .review-container form textarea {
+  outline: none;
+  padding: 15px;
+  border: 0px;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  background: rgba(0, 0, 0, 0.5);
+}
+main .review-container form select {
+  border: 0 !important;
+  width: 200px;
+  font-size: 1rem;
+  color: #fff;
+  background: #00B7FF;
+  margin: 5px;
+  padding: 10px;
+}
+main .review-container form select:focus {
+  outline: none;
+}
+main .review-container form option {
+  padding: 10px;
+  border: 0px;
+  font-size: 1rem;
+}
+main .review-container form option:hover {
+  background: #000;
+}
+main .review-container form option:focus {
+  outline: none;
+}
+main .review-container .star-rating {
+  color: #ffe74c;
+  float: right;
+}
+main .review-container .reviews {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+main .review-container .reviews .review {
+  background: rgba(5, 20, 35, 0.57);
+  width: 700px;
+  text-align: center;
+  padding: 15px;
+  margin-top: 25px;
+}
+main .review-container .reviews .review .star-rating {
+  color: #ffe74c;
+  float: right;
+}
+main .review-container .reviews .review .title {
+  float: left;
+  text-align: left;
+}
+main .review-container .reviews .review .text {
+  float: left;
+  text-align: left;
+}
+main .welcome {
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+main .welcome span {
+  color: #00B7FF;
+}
+main .welcome a {
+  text-decoration: none;
+  margin-top: 25px;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: rgba(0, 183, 255, 0.6);
+  color: #fff;
+  transition: 0.4s ease-in-out;
+}
+main .welcome a:hover {
+  background: #00b7ff;
+}
+main .boost-price {
+  min-height: 600px;
+  margin-top: -25px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main .boost-price form {
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+  width: 100%;
+  position: relative;
+  min-height: 500px;
+}
+main .boost-price form .step {
+  float: right;
+  font-size: 1.4rem;
+  opacity: 0.5;
+  padding: 15px;
+  position: absolute;
+  bottom: 45px;
+}
+main .boost-price form h1 {
+  text-align: center;
+  padding-bottom: 1em;
+  font-size: 2.2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+main .boost-price form h1 span {
+  color: #00B7FF;
+}
+main .boost-price form .price {
+  position: absolute;
+  bottom: -65px;
+  font-size: 1.8rem;
+  background: rgba(13, 30, 48, 0.8);
+  padding: 25px;
+}
+main .boost-price form .price span {
+  color: #00B7FF;
+  font-weight: 700;
+}
+main .boost-price form .buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+main .boost-price form .buttons .nextBtn {
+  margin-top: 30px;
+  padding: 2em;
+  border: 0px;
+  background: rgba(0, 0, 0, 0);
+  color: #fff;
+  transition: 0.4 ease-in-out;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 700;
+  opacity: 0.7;
+  outline: none;
+}
+main .boost-price form .buttons .nextBtn .fa-angle-right {
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+main .boost-price form .buttons .nextBtn .fa-angle-left {
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+main .boost-price form .buttons .nextBtn:hover {
+  opacity: 1;
+}
+main .boost-price form .buttons .nextBtn.active {
+  outline: none;
+}
+main .boost-price form .buttons .nextBtn.focus {
+  outline: none;
+}
+main .boost-price form .buttons .disabled {
+  opacity: 0;
+  cursor: default;
+}
+main .boost-price form .buttons .disabled:hover {
+  opacity: 0;
+}
+main .boost-price form .ranking-selection {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+main .boost-price form select {
+  border: 0 !important;
+  width: 200px;
+  font-size: 1rem;
+  color: #fff;
+  background: #00B7FF;
+  margin: 5px;
+  padding: 10px;
+}
+main .boost-price form select:focus {
+  outline: none;
+}
+main .boost-price form option {
+  padding: 10px;
+  border: 0px;
+  font-size: 1rem;
+}
+main .boost-price form option:hover {
+  background: #000;
+}
+main .boost-price form option:focus {
+  outline: none;
+}
+main .boost-price form label {
+  font-size: 1.3rem;
+  text-align: center;
+  opacity: 0.8;
+}
+main .boost-price form .extra {
+  width: 100%;
+}
+main .boost-price form .extra ul {
+  list-style: none;
+  background: rgba(16, 29, 44, 0.9);
+  position: relative;
+}
+main .boost-price form .extra ul li {
+  text-align: left;
+  padding: 1.5em 1em;
+  background: #00B7FF;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  width: 300px;
+  font-size: .9rem;
+}
+main .boost-price form .extra ul li span {
+  font-weight: 700;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+main .boost-price form .extra ul li i {
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+main .boost-price form .extra ul .extras-dropdown {
+  display: none;
+  overflow: hidden;
+  padding: 25px;
+  position: absolute;
+  top: 0px;
+  width: 650px;
+  left: 325px;
+  /* Rounded sliders */
+}
+main .boost-price form .extra ul .extras-dropdown .lightswitch {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+main .boost-price form .extra ul .extras-dropdown .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin-left: 20px;
+}
+main .boost-price form .extra ul .extras-dropdown .switch input {
+  display: none;
+}
+main .boost-price form .extra ul .extras-dropdown .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+main .boost-price form .extra ul .extras-dropdown .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+main .boost-price form .extra ul .extras-dropdown input:checked + .slider {
+  background-color: #4fbfff;
+}
+main .boost-price form .extra ul .extras-dropdown input:focus + .slider {
+  box-shadow: 0 0 1px #4fbfff;
+}
+main .boost-price form .extra ul .extras-dropdown input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+main .boost-price form .extra ul .extras-dropdown .slider.round {
+  border-radius: 34px;
+}
+main .boost-price form .extra ul .extras-dropdown .slider.round:before {
+  border-radius: 50%;
+}
+main .boost-price form .extra ul .extras-dropdown .flash-label {
+  background: rgba(0, 0, 0, 0.5);
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100px;
+  width: 100px;
+  opacity: 0.7;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+main .boost-price form .extra ul .extras-dropdown input[type="radio"] {
+  display: none;
+}
+main .boost-price form .extra ul .extras-dropdown input[type="radio"]:checked + label {
+  opacity: 1;
+  border: 2px solid #00B7FF;
+}
+main .boost-price form .extra ul .extras-dropdown p {
+  padding: 25px 50px;
+}
+main .boost-price form .extra ul .extras-dropdown .flashes {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0px;
+}
+main .boost-price form .extra ul .extras-dropdown .flashes div {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main .boost-price form .extra ul .extras-dropdown .positions {
+  display: flex;
+  justify-content: center;
+  padding: 25px 0px;
+}
+main .boost-price form .extra ul .extras-dropdown .positions .position {
+  display: flex;
+  flex-direction: column;
+  flex: 33%;
+  justify-content: center;
+  align-items: center;
+}
+main .boost-price form .extra ul .extras-dropdown .positions .position label {
+  margin-top: 10px;
+}
+main .boost-price form .extra ul .extras-dropdown .positions .position input[type=text] {
+  background: rgba(0, 0, 0, 0.2);
+  border: 0px;
+  border-bottom: 1px solid #00B7FF;
+  margin-top: 5px;
+  padding: 7px;
+  outline: none;
+  color: #fff;
+}
+main .boost-price form .extra ul .extras-dropdown h2 {
+  padding: 0px;
+  text-align: left;
+}
+main .boost-price form .select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+main .boost-price form .select .popup-rank-select {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.6);
+}
+main .boost-price form .select .popup-rank-select .container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: #101010;
+  background: #fff;
+  padding: 50px;
+  width: 900px;
+}
+main .boost-price form .select .popup-rank-select .container .ranks {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 30px;
+}
+main .boost-price form .select .popup-rank-select .container .ranks button {
+  text-align: left;
+  background: rgba(0, 0, 0, 0);
+  border: 0px;
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+main .boost-price form .select .popup-rank-select .container .ranks button:hover {
+  color: #00B7FF;
+}
+main .boost-price form .select .popup-rank-select .container .ranks label {
+  text-align: left;
+  font-size: 1rem;
+  margin-top: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+main .boost-price form .select .popup-rank-select .container .ranks label:hover {
+  color: #00B7FF;
+}
+main .boost-price form .select .popup-rank-select .container .ranks input[type="radio"] {
+  display: none;
+}
+main .boost-price form .select .popup-rank-select .container .ranks input[type="radio"]:checked + label {
+  color: #00B7FF;
+}
+main .boost-price form .select .ranks-select {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 850px;
+}
+main .boost-price form .select .ranks-select .rank {
+  text-align: center;
+}
+main .boost-price form .select .ranks-select .rank label {
+  text-transform: uppercase;
+}
+main .boost-price form .select .ranks-select .rank .rank-select {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(13, 30, 48, 0.7);
+  width: 250px;
+  border-top: 3px solid #00B7FF;
+}
+main .boost-price form .select .ranks-select .rank .rank-select .select-rank {
+  background: #00B7FF;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  width: 280px;
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+}
+main .boost-price form .select .ranks-select .rank .rank-select .select-rank i {
+  font-size: 1.4rem;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 2px;
+}
+main .boost-price form .select .ranks-select .rank .rank-select .select-rank .shadow-left {
+  z-index: -1;
+  background: #006e99;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: -24px;
+  left: 0px;
+  -webkit-clip-path: polygon(100% 0, 0 0, 100% 100%);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+main .boost-price form .select .ranks-select .rank .rank-select .select-rank .shadow-right {
+  z-index: -1;
+  background: #006e99;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: -24px;
+  right: 0px;
+  -webkit-clip-path: polygon(100% 0, 0 0, 0 100%);
+  clip-path: polygon(100% 0, 0 0, 0 100%);
+}
+main .boost-price form .select .ranks-select .flag-end {
+  background: rgba(13, 30, 48, 0.7);
+  width: 250px;
+  height: 100px;
+  -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 51% 20%, 0 100%, 0 0);
+  clip-path: polygon(50% 0%, 100% 0, 100% 100%, 51% 20%, 0 100%, 0 0);
+}
+main .boost-price form .select .ranks-select .middle-icon {
+  flex: 1;
+  font-size: 6.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  opacity: 0.5;
+  color: #00B7FF;
+}
+main .boost-price form .checkout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+main .boost-price form .checkout .price-table {
+  width: 800px;
+  margin: 25px 0px;
+}
+main .boost-price form .checkout .price-table table {
+  width: 100%;
+  background: rgba(13, 30, 48, 0.7);
+  padding: 25px 75px;
+  border-collapse: collapse;
+}
+main .boost-price form .checkout .price-table table thead tr .text-right {
+  text-align: right;
+}
+main .boost-price form .checkout .price-table table thead tr th {
+  text-align: left;
+  padding: 1em;
+  background: #00B7FF;
+  font-weight: 700;
+  color: #fff;
+}
+main .boost-price form .checkout .price-table table tbody tr .text-right {
+  text-align: right;
+}
+main .boost-price form .checkout .price-table table tbody tr .table-price {
+  font-weight: 700;
+  color: #42a030;
+}
+main .boost-price form .checkout .price-table table tbody tr th {
+  padding: 1em;
+  background: #20a1eb;
+  color: #fff;
+  font-weight: 400;
+}
+main .boost-price form .checkout .price-table table tbody tr td {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1em;
+}
+main .order {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main .order h1 {
+  text-transform: uppercase;
+  text-align: center;
+}
+main .order .rank-info {
+  display: flex;
+  justify-content: center;
+  padding: 25px;
+}
+main .order .rank-info p {
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+main .order .rank-info p i {
+  font-size: 2rem;
+  margin: 25px;
+  color: #00B7FF;
+}
+main .order .user-info {
+  display: flex;
+  justify-content: space-between;
+}
+main .order .user-info .user-ranks {
+  background: rgba(13, 30, 48, 0.57);
+  margin: 25px;
+  padding: 25px;
+  flex: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 7px;
+}
+main .order .user-info .user-ranks p {
+  font-size: 1.5rem;
+}
+main .order .user-info .update-form {
+  margin: 25px;
+  flex: 45%;
+}
+main .order .user-info .update-form form p {
+  font-size: .8rem;
+  font-style: italic;
+}
+main .order .user-info .update-form form .inputs {
+  margin: 25px 0px;
+}
+main .order .user-info .update-form form .inputs .server-input {
+  display: flex;
+  align-items: center;
+  margin: 1em;
+}
+main .order .user-info .update-form form .inputs .server-input p {
+  font-size: 1rem;
+  font-style: normal;
+  margin-right: 5px;
+}
+main .order .user-info .update-form form .inputs .server-input i {
+  margin-right: 5px;
+  font-size: 1rem;
+  color: #20a1eb;
+}
+main .order .user-info .update-form form .inputs .server-input select {
+  border: 0px;
+  background: #00B7FF;
+  color: #fff;
+  padding: 7px;
+  margin: 5px;
+}
+main .order .user-info .update-form form .inputs .input {
+  position: relative;
+  margin: 1em;
+}
+main .order .user-info .update-form form .inputs .input i {
+  margin-right: 5px;
+  font-size: 1rem;
+  color: #20a1eb;
+}
+main .order .user-info .update-form form .inputs .input input {
+  background: rgba(13, 30, 48, 0);
+  border: 0px;
+  border-bottom: 1px solid #20a1eb;
+  position: relative;
+  padding: 7px;
+  padding-top: 20px;
+  font-size: 1rem;
+  width: 250px;
+  color: #f3f3f3;
+}
+main .order .user-info .update-form form .inputs .input input:focus {
+  outline: none;
+}
+main .order .user-info .update-form form .inputs .input input:focus + label {
+  z-index: 2;
+  opacity: 1;
+  margin-bottom: 28px;
+}
+main .order .user-info .update-form form .inputs .input label {
+  font-size: 1rem;
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+  opacity: 0;
+  margin-bottom: 0px;
+  z-index: -1;
+  transition: all 0.5s ease-in-out;
+}
+main .order .matches {
+  margin-top: 50px;
+  margin: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+main .order .matches p {
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+main .order .matches .win {
+  background: rgba(0, 150, 0, 0.2) !important;
+}
+main .order .matches .match {
+  background: rgba(150, 0, 0, 0.2);
+  border-radius: 7px;
+  padding: 25px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+main .order .matches .match .info {
+  display: flex;
+  margin-top: 5px;
+}
+main .order .matches .match i {
+  color: #00B7FF;
+  margin-right: 5px;
+}
+main .order .matches .match p {
+  font-weight: 400;
+  font-size: 1.1rem;
+  flex: 25%;
+}
+main .order .matches .match span {
+  font-style: italic;
+  margin-right: 30px;
+  margin-top: 10px;
+}
+footer {
+  background: #202020;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3em;
+  color: #fff;
+  font-weight: 700;
+}

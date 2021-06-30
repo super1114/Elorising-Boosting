@@ -1,0 +1,243 @@
+{% extends "template/main.twig" %}
+
+{% block title %}Duo Queue{% endblock %}
+
+{% block main %}
+
+  <div class="boost-price">
+
+    <form id="duo-boosting-form" action="{{ base_url() }}/order" method="post" onchange="javascript:updateReceipt();javascript:updatePrice();" autocomplete="off">
+
+      {% if loggedin == false %}
+
+        <h2>You have to Login or Register to make an order.</h2>
+        <div style="display: flex;">
+          <a href="#register" class="btn register-toggle">Register <i class="fal fa-user-edit"></i></a>
+          <a href="#login" class="btn login-toggle">Login <i class="fal fa-sign-in-alt"></i></a>
+        </div>
+
+      {% elseif activeOrder %}
+
+        <h2>You Already have a Active order!</h2>
+        <a href="{{ base_url() }}/user/order" class="btn">My Order <i class="fal fa-cart-arrow-down"></i></a>
+
+      {% else %}
+
+        <h1>Duo <span>queue</span></h1>
+
+        <p class="price">Current Price: <span class="final-price">0$</span></p>
+        <p class="step">Step 1</p>
+
+        <input id="price-input" type="text" name="price" value="" style="display: none;">
+        <input type="text" name="order_type" value="duo" style="display: none;">
+        <input type="text" name="ordered_by" value="{{ user.id }}" style="display: none;">
+
+        <div class="ranking-selection">
+          <div id="slide1" class="select">
+
+            <div style="display:none;" id="current-rank-select" class="popup-rank-select" onchange="getPriceDuo();">
+              <div class="container">
+                <div class="ranks">
+                  <h2>Bronze</h2>
+                  <input checked="checked" id="bronze_5" type="radio" onclick="flipCurrent(this)" url="{{ base_url() }}/assets/img/ranks/bronze_5.png" name="currentRank" value="0"></input>
+                  <label for="bronze_5">Bronze V</label>
+                  <input type="radio" id="bronze_4" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/bronze_4.png" name="currentRank" value="1"></input>
+                  <label for="bronze_4">Bronze IV</label>
+                  <input type="radio" id="bronze_3" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/bronze_3.png" name="currentRank" value="2"></input>
+                  <label for="bronze_3">Bronze III</label>
+                  <input type="radio" id="bronze_2" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/bronze_2.png" name="currentRank" value="3"></input>
+                  <label for="bronze_2">Bronze II</label>
+                  <input type="radio" id="bronze_1" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/bronze_1.png" name="currentRank" value="4"></input>
+                  <label for="bronze_1">Bronze I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Silver</h2>
+                  <input type="radio" id="silver_5" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/silver_5.png" name="currentRank" value="5"></input>
+                  <label for="silver_5">Silver V</label>
+                  <input type="radio" id="silver_4" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/silver_4.png" name="currentRank" value="6"></input>
+                  <label for="silver_4">Silver IV</label>
+                  <input type="radio" id="silver_3" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/silver_3.png" name="currentRank" value="7"></input>
+                  <label for="silver_3">Silver III</label>
+                  <input type="radio" id="silver_2" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/silver_2.png" name="currentRank" value="8"></input>
+                  <label for="silver_2">Silver II</label>
+                  <input type="radio" id="silver_1" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/silver_1.png" name="currentRank" value="9"></input>
+                  <label for="silver_1">Silver I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Gold</h2>
+                  <input type="radio" id="gold_5" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/gold_5.png" name="currentRank" value="10"></input>
+                  <label for="gold_5">Gold V</label>
+                  <input type="radio" id="gold_4" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/gold_4.png" name="currentRank" value="11"></input>
+                  <label for="gold_4">Gold IV</label>
+                  <input type="radio" id="gold_3" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/gold_3.png" name="currentRank" value="12"></input>
+                  <label for="gold_3">Gold III</label>
+                  <input type="radio" id="gold_2" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/gold_2.png" name="currentRank" value="13"></input>
+                  <label for="gold_2">Gold II</label>
+                  <input type="radio" id="gold_1" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/gold_1.png" name="currentRank" value="14"></input>
+                  <label for="gold_1">Gold I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Platinum</h2>
+                  <input type="radio" id="platinum_5" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/platinum_5.png" name="currentRank" value="15"></input>
+                  <label for="platinum_5">Platinum V</label>
+                  <input type="radio" id="platinum_4" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/platinum_4.png" name="currentRank" value="16"></input>
+                  <label for="platinum_4">Platinum IV</label>
+                  <input type="radio" id="platinum_3" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/platinum_3.png" name="currentRank" value="17"></input>
+                  <label for="platinum_3">Platinum III</label>
+                  <input type="radio" id="platinum_2" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/platinum_2.png" name="currentRank" value="18"></input>
+                  <label for="platinum_2">Platinum II</label>
+                  <input type="radio" id="platinum_1" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/platinum_1.png" name="currentRank" value="19"></input>
+                  <label for="platinum_1">Platinum I</label>
+                </div>
+                <div class="ranks">
+                  <h2>Diamond</h2>
+                  <input type="radio" id="diamond_5" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/diamond_5.png" name="currentRank" value="20"></input>
+                  <label for="diamond_5">Diamond V</label>
+                  <input type="radio" id="diamond_4" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/diamond_4.png" name="currentRank" value="21"></input>
+                  <label for="diamond_4">Diamond IV</label>
+                  <input type="radio" id="diamond_3" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/diamond_3.png" name="currentRank" value="22"></input>
+                  <label for="diamond_3">Diamond III</label>
+                  <input type="radio" id="diamond_2" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/diamond_2.png" name="currentRank" value="23"></input>
+                  <label for="diamond_2">Diamond II</label>
+                  <input type="radio" id="diamond_1" onclick="flipCurrent(this);getPriceDuo();" url="{{ base_url() }}/assets/img/ranks/diamond_1.png" name="currentRank" value="24"></input>
+                  <label for="diamond_1">Diamond I</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="ranks-select">
+              <div class="rank">
+                <label>Current Rank</label>
+                <div class="rank-select">
+
+                  <img id="currentRank" src="{{ base_url() }}/assets/img/ranks/bronze_5.png">
+
+                  <div class="select-rank current-rank-select-toggle">
+                    <p id="currentRank-text">Bronze V</p>
+                    <i class="fal fa-pencil-alt"></i>
+                    <div class="shadow-left"></div>
+                    <div class="shadow-right"></div>
+                  </div>
+                </div>
+                <div class="flag-end"></div>
+              </div>
+              <div class="middle-icon">
+                <i class="fal fa-angle-double-right"></i>
+              </div>
+              <div class="rank">
+                <label>Amount of games</label>
+                <div class="rank-select" style="padding: 100px 0px;">
+                  <label id="game_amount_label" for="game_amount">0</label>
+                  <input id="game_amount" type="range" name="game_amount" min="0" max="20" value="0" oninput="sliderUpdate();getPriceDuo();">
+                  <select id="game_type" name="game_type">
+                    <option value="Duo Games" selected>Games</option>
+                    <option value="Duo Wins">Wins</option>
+                  </select>
+                </div>
+                <div class="flag-end"></div>
+              </div>
+            </div>
+
+            <div class="buttons">
+              <button class="nextBtn disabled" type="button"><i class="fal fa-angle-left"></i> Go Back</button>
+              <button class="nextBtn step2text step2" type="button">Next Step <i class="fal fa-angle-right"></i></button>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="slide2" class="checkout">
+
+          <div class="price-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Information</th>
+                  <th class="text-right">Quantity</th>
+                  <th class="text-right">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th colspan="4">Boosting</th>
+                </tr>
+                <tr>
+                  <td id="boosting_desc"></td>
+                  <td id="boosting_info"></td>
+                  <td class="text-right">1</td>
+                  <td class="text-right" id="boosting_price">0$</td>
+                </tr>
+                <tr>
+                  <th colspan="4">Total</th>
+                </tr>
+                <tr>
+                  <td colspan="3">Total:</td>
+                  <td class="text-right table-price"><span class="final-price">0$</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="color: #42a030;">Coupon code: <strong>elorising</strong> for 10% of.</p>
+
+          <div class="referral">
+            <input type="text" name="referral_code" value="" placeholder="Referral Code">
+            <button type="button" class="btn" name="button" onclick="checkReferral()">Apply Code</button>
+          </div>
+
+          <div id="paypal-button" class="paypal"></div>
+
+          <div class="buttons">
+            <button class="nextBtn step1text step1" type="button"><i class="fal fa-angle-left"></i> Go Back</button>
+          </div>
+        </div>
+
+      {% endif %}
+    </form>
+
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    paypal.Button.render({
+      env: 'sandbox',
+
+      commit: true,
+
+      style: {
+        color: 'blue',
+        size: 'large',
+        shape: 'rect',
+        label: 'checkout',
+      },
+
+      client: {
+        sandbox:    'AffGimQ0CRDttBEFjJ2f7lwa1e0mKBqk4zeFxq70b-pJt7BENI9zpSDRHpN-iQL34guoM8ApOvgkcozK',
+        production: 'xxxxxxxxx',
+      },
+
+      payment: function(data, actions) {
+        return actions.payment.create({
+          payment: { transactions: [{
+                amount: { total: fullPrice, currency: 'USD' }
+          }]}
+        });
+      },
+
+      onAuthorize: function(data, actions) {
+        return actions.payment.execute().then(function(payment) {
+          document.getElementById("duo-boosting-form").submit();
+        });
+      },
+
+      onCancel: function(data, actions) {
+
+      },
+
+      onError: function(err) {
+
+      }
+    }, '#paypal-button');
+  </script>
+{% endblock %}

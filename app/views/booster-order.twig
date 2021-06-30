@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>Booster Panel</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-oi8o31xSQq8S0RpBcb4FaLB8LJi9AT8oIdmS1QldR8Ui7KUQjNAnDlJjp55Ba8FG" crossorigin="anonymous">
+    <link href="{{ base_url() }}/assets/css/style.css" rel="stylesheet">
+    <link href="{{ base_url() }}/assets/css/mystyle.css" rel="stylesheet">
+
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+
+    <div class="app-body">
+      <div class="sidebar">
+
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel"><i class="nav-icon fal fa-user-secret"></i> Booster Dashboard</a></li>
+            <!--<li class="nav-item nav-dropdown">
+
+              <a class="nav-link nav-dropdown-toggle"><i class="nav-icon fal fa-exclamation-circle"></i> Available Orders</a>
+
+              <ul class="nav-dropdown-items">
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/solo"><i class="nav-icon fal fa-exclamation-circle"></i> Solo Queue</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/duo"><i class="nav-icon fal fa-exclamation-circle"></i> Duo Queue</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/placements"><i class="nav-icon fal fa-exclamation-circle"></i> Placement Games</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/wins"><i class="nav-icon fal fa-exclamation-circle"></i> Normal Wins</a></li>
+              </ul>
+            </li>-->
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders"><i class="nav-icon fal fa-exclamation-circle"></i> Available Orders</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/order"><i class="nav-icon fal fa-exclamation-circle"></i> Your Orders</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/order-history"><i class="nav-icon fal fa-exclamation-circle"></i> Order History</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <main class="main">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item">
+            <a href="{{ base_url() }}/booster-panel">Booster</a>
+          </li>
+          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+              <a class="btn" href="#">
+                <i class="fal fa-user"></i> Profile</a>
+            </div>
+          </li>
+        </ol>
+
+        <div class="container-fluid">
+          <div class="animated fadeIn">
+
+            <h1>Your Order</h1>
+            <div class="row">
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-primary">
+                  <div class="card-body">
+                    <div class="account_details">
+                      <h3>Account Details</h3>
+                      <span>Username: {{ user.lol_username }}</span><br>
+                      <span>Password: {{ user.lol_password }}</span><br>
+                      <span>Server: {{ user.lol_server }}</span><br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-primary">
+                  <div class="card-body">
+                    <div class="account_details">
+                      <h3>Contact User</h3>
+                      <span>Discord: {{ user.discord }}</span><br>
+                      <span>Skype: {{ user.skype }}</span><br><br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-primary">
+                  <div class="card-body">
+                    <div class="account_details">
+                      <h3>Payment</h3>
+                      <span>Your payment for this order is<br>
+                        <strong>{{ order.price * (order.getboosterProcentage(booster.id)|number_format / 100) }}$</strong>
+                      </span><br><br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <div class="order">
+
+                  <h3>Update Order</h3>
+                  <form class="" action="{{ base_url() }}/booster-panel/updateOrder" method="post">
+                    <input style="display: none;" type="text" name="orderId" value="{{ order.id }}">
+                    <input style="display: none;" type="text" name="userId" value="{{ order.ordered_by }}">
+                    <label>Update Order (match history)</label><br>
+                    <button class="btn" type="submit" name="button">Click here to Update</button>
+                  </form><br>
+                  <form class="" action="{{ base_url() }}/booster-panel/completeOrder" method="post">
+                    <input style="display: none;" type="text" name="orderId" value="{{ order.id }}">
+                    <input style="display: none;" type="text" name="userId" value="{{ order.ordered_by }}">
+                    <label>Check if order is completed</label><br>
+                    <button class="btn" type="submit" name="button">Complete Order</button>
+                  </form><br><br>
+                  <form class="" action="{{ base_url() }}/booster-panel/cancelOrder" method="post">
+                    <input style="display: none;" type="text" name="orderId" value="{{ order.id }}">
+                    <input style="display: none;" type="text" name="userId" value="{{ order.ordered_by }}">
+                    <label>Cancel Order (you will not get anything for this even if you started playing)</label><br>
+                    <button class="btn" type="submit" name="button">Cancel Order</button>
+                  </form>
+
+                  <br><hr><br>
+
+                  {% if user.lol_summonerName == null %}
+                    <h3 style="color: red;">Don't update your game until your client has entered their Summoner name and Server.</h3>
+                    <br>
+                  {% endif %}
+
+                  {% if user.lol_summonerName == "" %}
+                    <h3 style="color: red;">Don't update your game until your client has entered their Summoner name and Server.</h3>
+                    <br>
+                  {% endif %}
+
+                  <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                      <h2>Player Rank</h2>
+                      <h4><strong>
+                        {{ order.currentRank }}
+                      </strong></h4>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                      <h2>Your Goal</h2>
+                      <h4><strong>
+                        {{ order.desiredRank }}
+                      </strong></h4>
+                    </div>
+                  </div>
+
+                  <br><hr><br>
+
+                  <h2>Extras</h2>
+
+                  {% if order.specific_spellposition %}
+                    <h4>Spellposition</h4>
+                    <span>{{ order.flash_posistion|replace({'_': ' <strong>'})|raw }}</strong></span>
+                    <br><br>
+                  {% endif %}
+
+                  {% if order.favorite_champs %}
+                    <h4>Favorite Champions</h4>
+                    <div class="row">
+                      <div class="col-sm-6 col-lg-3">
+                        <h5>{{ order.priority_lane_1 }}</h5>
+                        <span>{{ order.priority_1_champions|replace({'/': '<br>'})|raw }}</span>
+                      </div>
+                      <div class="col-sm-6 col-lg-3">
+                        <h5>{{ order.priority_lane_2 }}</h5>
+                        <span>{{ order.priority_2_champions|replace({'/': '<br>'})|raw }}</span>
+                      </div>
+                      <div class="col-sm-6 col-lg-3">
+                        <h5>{{ order.priority_lane_3 }}</h5>
+                        <span>{{ order.priority_3_champions|replace({'/': '<br>'})|raw }}</span>
+                      </div>
+                    </div>
+                    <br>
+                  {% endif %}
+
+                  {% if order.coching %}
+                    <h4>Coching Addon</h4>
+                    <span>You have to do a coaching session after the boost</span>
+                    <br><br>
+                  {% endif %}
+
+                  {% if order.offlinemode %}
+                    <h4>Appear Offline</h4>
+                    <span>You have to make the account appear offline when you boost</span>
+                    <br><br>
+                  {% endif %}
+
+                  {% if order.account_warranty %}
+                    <h4>Account Warranty</h4>
+                    <span>If this account is banned during or after the boosting process you have to boost a new account to lvl 30 and 10 placement games</span>
+                    <br><br>
+                  {% endif %}
+
+                  <br><hr><br>
+
+                  <h2>Game History</h2>
+
+                  <div class="matches">
+
+                    <p>W/L Ratio: {{ match_wins }}/{{ match_losses }}</p>
+
+                    {% for match in matches %}
+                      <div class="match {% if match.win == true %}win{% endif %}">
+                        <div class="info">
+                          <p><i class="fal fa-skull"></i> <strong>KDA</strong> {{ match.kda }}</p>
+                          <p><i class="fal fa-bolt"></i> <strong>Total Damage</strong> {{ match.damage_dealt }}</p>
+                          <p><i class="fal fa-user-times"></i> <strong>Minion Kills</strong> {{ match.minion_kills }}</p>
+                          <p><i class="fal fa-coins"></i> <strong>Total Gold</strong> {{ match.gold_earned }}</p>
+                        </div>
+                        <div class="info">
+                          <span><strong>Double Kills</strong> {{ match.double_kills }}</span>
+                          <span><strong>Triple Kills</strong> {{ match.triple_kills }}</span>
+                          <span><strong>Qudra Kills</strong> {{ match.qudra_kills }}</span>
+                          <span><strong>Penta Kills</strong> {{ match.penta_kills }}</span>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+    <footer class="app-footer">
+      <div>
+        <a href="#">Boost App</a>
+        <span>&copy; 2018 Boost Application</span>
+      </div>
+      <div class="ml-auto">
+        <span>Powered by</span>
+        <a href="#">Boost App</a>
+      </div>
+    </footer>
+
+    <script src="{{ base_url() }}/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/pace-progress/pace.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
+  </body>
+</html>

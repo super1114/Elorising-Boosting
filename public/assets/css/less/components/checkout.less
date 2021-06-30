@@ -1,0 +1,63 @@
+//main: ../main.less
+
+.checkout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .price-table {
+    width: 800px;
+    margin: 25px 0px;
+
+    table {
+      width: 100%;
+      background: rgba(13,30,48, 0.7);
+      padding: 25px 75px;
+      border-collapse: collapse;
+
+      thead {
+
+        tr {
+
+          .text-right {
+            text-align: right;
+          }
+          th {
+            text-align: left;
+            padding: 1em;
+            background: @main-color;
+            font-weight: 700;
+            color: #fff;
+          }
+        }
+      }
+
+      tbody {
+
+        tr {
+          .text-right {
+            text-align: right;
+          }
+          .table-price {
+            font-weight: 700;
+            color: #42a030;
+          }
+
+          th {
+            padding: 1em;
+            background: #20a1eb;
+            color: #fff;
+            font-weight: 400;
+          }
+
+          td {
+            border: 1px solid rgba(0,0,0, 0.1);
+            padding: 1em;
+          }
+        }
+      }
+    }
+  }
+}

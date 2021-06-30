@@ -1,0 +1,140 @@
+//out: ../mystyle.css
+//main: adminstyle.less
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700i,900');
+@import url('https://rsms.me/inter/inter-ui.css');
+
+.header-fixed .app-body {
+  margin-top: 0px;
+}
+
+.sidebar .nav-link .nav-icon {
+  font-size: 1.1rem;
+}
+
+h1 {
+  text-transform: capitalize;
+}
+
+.btn {
+  margin: 0px;
+}
+
+input[type="text"] {
+  padding: 7px;
+  border-radius: 5px;
+  background: #e3e3e3;
+  border: 0px;
+} input[type="text"]:focus {
+  outline: none;
+}
+
+input[type="number"] {
+  padding: 7px;
+  border-radius: 5px;
+  background: #e3e3e3;
+  border: 0px;
+  width: 60px;
+  margin: 0px;
+  margin-right: 5px;
+} input[type="number"]:focus {
+  outline: none;
+}
+
+.matches {
+  margin-top: 50px;
+  margin: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  p {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+
+  .win {
+    background: rgba(0, 150, 0, 0.2) !important;
+  }
+
+  .match {
+    background: rgba(150, 0, 0, 0.2);
+    border-radius: 7px;
+    padding: 25px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .info {
+      display: flex;
+      margin-top: 5px;
+    }
+
+    i {
+      color: #00B7FF;
+      margin-right: 5px;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 1.1rem;
+      flex: 25%;
+    }
+    span {
+      font-style: italic;
+      margin-right: 30px;
+      margin-top: 10px;
+    }
+  }
+}
+
+main {
+
+  .card {
+
+    .orders {
+
+      table {
+        width: 100%;
+
+        thead {
+          margin-bottom: 25px;
+
+          tr {
+
+            th {
+              border-bottom: 1px solid rgba(0,0,0, .6);
+              padding: 10px 0px;
+            } th:last-child {
+              //border: 0px solid rgba(0,0,0, .4);
+            }
+          }
+        }
+        tbody {
+
+          tr {
+
+            td {
+              border: 1px solid rgba(0,0,0, .2);
+              padding: 5px 15px;
+              background: #f6f6f6;
+
+              button {
+                border: 0px;
+                background: #4fbfff;
+                border-radius: 5px;
+                color: #fff;
+                padding: 5px 10px;
+              } button:hover {
+                background: #20a1eb;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

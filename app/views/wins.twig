@@ -1,0 +1,156 @@
+{% extends "template/main.twig" %}
+
+{% block title %}Normal Wins{% endblock %}
+
+{% block main %}
+
+  <div class="boost-price">
+
+    <form id="wins-boosting-form" action="{{ base_url() }}/order" method="post" onchange="javascript:updateReceipt();javascript:updatePrice();" autocomplete="off">
+
+      {% if loggedin == false %}
+
+        <h2>You have to Login or Register to make an order.</h2>
+        <div style="display: flex;">
+          <a href="#register" class="btn register-toggle">Register <i class="fal fa-user-edit"></i></a>
+          <a href="#login" class="btn login-toggle">Login <i class="fal fa-sign-in-alt"></i></a>
+        </div>
+
+      {% elseif activeOrder %}
+
+        <h2>You Already have a Active order!</h2>
+        <a href="{{ base_url() }}/user/order" class="btn">My Order <i class="fal fa-cart-arrow-down"></i></a>
+
+      {% else %}
+
+        <h1>Normal <span>Wins</span></h1>
+
+        <p class="price">Current Price: <span class="final-price">0$</span></p>
+        <p class="step">Step 1</p>
+
+        <input id="price-input" type="text" name="price" value="" style="display: none;">
+        <input type="text" name="order_type" value="wins" style="display: none;">
+        <input type="text" name="ordered_by" value="{{ user.id }}" style="display: none;">
+
+        <div class="ranking-selection">
+          <div id="slide1" class="select">
+
+            <div class="ranks-select">
+              <div class="rank">
+                <div class="rank-select">
+                  <br><br><br><br>
+                  <label>Number of Games</label>
+                  <br>
+                  <label id="game_amount_label" for="game_amount">0</label>
+                  <input id="game_amount" type="range" name="game_amount" min="0" max="30" value="0" oninput="sliderUpdate();getPriceWins();">
+                  <br><br><br><br>
+                </div>
+                <div class="flag-end"></div>
+              </div>
+            </div>
+
+            <div class="buttons">
+              <button class="nextBtn disabled" type="button"><i class="fal fa-angle-left"></i> Go Back</button>
+              <button class="nextBtn step2text step2" type="button">Next Step <i class="fal fa-angle-right"></i></button>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="slide2" class="checkout">
+
+          <div class="price-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Information</th>
+                  <th class="text-right">Quantity</th>
+                  <th class="text-right">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th colspan="4">Boosting</th>
+                </tr>
+                <tr>
+                  <td id="boosting_desc"></td>
+                  <td id="boosting_info"></td>
+                  <td class="text-right">1</td>
+                  <td class="text-right" id="boosting_price">0$</td>
+                </tr>
+                <tr>
+                  <th colspan="4">Total</th>
+                </tr>
+                <tr>
+                  <td colspan="3">Total:</td>
+                  <td class="text-right table-price"><span class="final-price">0$</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p style="color: #42a030;">Coupon code: <strong>elorising</strong> for 10% of.</p>
+
+          <div class="referral">
+            <input type="text" name="referral_code" value="" placeholder="Referral Code">
+            <button type="button" class="btn" name="button" onclick="checkReferral()">Apply Code</button>
+          </div>
+
+          <div id="paypal-button" class="paypal"></div>
+
+          <div class="buttons">
+            <button class="nextBtn step1text step1" type="button"><i class="fal fa-angle-left"></i> Go Back</button>
+          </div>
+        </div>
+
+        {% endif %}
+    </form>
+
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    paypal.Button.render({
+      env: 'sandbox',
+
+      commit: true,
+
+      style: {
+        color: 'blue',
+        size: 'large',
+        shape: 'rect',
+        label: 'checkout',
+      },
+
+      client: {
+        sandbox:    'AffGimQ0CRDttBEFjJ2f7lwa1e0mKBqk4zeFxq70b-pJt7BENI9zpSDRHpN-iQL34guoM8ApOvgkcozK',
+        production: 'xxxxxxxxx',
+      },
+
+      payment: function(data, actions) {
+        return actions.payment.create({
+          payment: { transactions: [{
+                amount: { total: fullPrice, currency: 'USD' }
+          }]}
+        });
+      },
+
+      onAuthorize: function(data, actions) {
+        return actions.payment.execute().then(function(payment) {
+          document.getElementById("wins-boosting-form").submit();
+        });
+      },
+
+      onCancel: function(data, actions) {
+
+      },
+
+      onError: function(err) {
+
+      }
+    }, '#paypal-button');
+  </script>
+{% endblock %}

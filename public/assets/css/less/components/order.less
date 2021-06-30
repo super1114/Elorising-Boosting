@@ -1,0 +1,184 @@
+//main: ../main.less
+
+.order {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .rank-info {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+
+    p {
+      font-size: 1.3rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+
+      i {
+        font-size: 2rem;
+        margin: 25px;
+        color: @main-color;
+      }
+    }
+  }
+
+  .user-info {
+    display: flex;
+    justify-content: space-between;
+
+    .user-ranks {
+      background: rgba(13,30,48, 0.57);
+      margin: 25px;
+      padding: 25px;
+      flex: 45%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 7px;
+
+      p {
+        font-size: 1.5rem;
+      }
+    }
+
+    .update-form {
+      margin: 25px;
+      flex: 45%;
+
+      form {
+
+        p {
+          font-size: .8rem;
+          font-style: italic;
+        }
+
+        .inputs {
+          margin: 25px 0px;;
+
+          .server-input {
+            display: flex;
+            align-items: center;
+            margin: 1em;
+
+            p {
+              font-size: 1rem;
+              font-style: normal;
+              margin-right: 5px;
+            }
+            i {
+              margin-right: 5px;
+              font-size: 1rem;
+              color: #20a1eb;
+            }
+
+            select {
+              border: 0px;
+              background: @main-color;
+              color: #fff;
+              padding: 7px;
+              margin: 5px;
+            }
+          }
+
+          .input {
+            position: relative;
+            margin: 1em;
+
+            i {
+              margin-right: 5px;
+              font-size: 1rem;
+              color: #20a1eb;
+            }
+
+            input {
+              background: rgba(13,30,48, 0);
+              border: 0px;
+              border-bottom: 1px solid #20a1eb;
+              position: relative;
+              padding: 7px;
+              padding-top: 20px;
+              font-size: 1rem;
+              width: 250px;
+              color: #f3f3f3;
+            } input:focus {
+              outline: none;
+
+              + label {
+                z-index: 2;
+                opacity: 1;
+                margin-bottom: 28px;
+              }
+            }
+
+            label {
+              font-size: 1rem;
+              position: absolute;
+              bottom: 0px;
+              left: 20px;
+              opacity: 0;
+              margin-bottom: 0px;
+              z-index: -1;
+              transition: all .5s ease-in-out;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .matches {
+    margin-top: 50px;
+    margin: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    p {
+      font-weight: 700;
+      font-size: 1.3rem;
+    }
+
+    .win {
+      background: rgba(0, 150, 0, 0.2) !important;
+    }
+
+    .match {
+      background: rgba(150, 0, 0, 0.2);
+      border-radius: 7px;
+      padding: 25px;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      .info {
+        display: flex;
+        margin-top: 5px;
+      }
+
+      i {
+        color: @main-color;
+        margin-right: 5px;
+      }
+
+      p {
+        font-weight: 400;
+        font-size: 1.1rem;
+        flex: 25%;
+      }
+      span {
+        font-style: italic;
+        margin-right: 30px;
+        margin-top: 10px;
+      }
+    }
+  }
+}

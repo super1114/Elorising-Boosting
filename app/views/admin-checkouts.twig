@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>Admin Panel</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-oi8o31xSQq8S0RpBcb4FaLB8LJi9AT8oIdmS1QldR8Ui7KUQjNAnDlJjp55Ba8FG" crossorigin="anonymous">
+    <link href="{{ base_url() }}/assets/css/style.css" rel="stylesheet">
+    <link href="{{ base_url() }}/assets/css/mystyle.css" rel="stylesheet">
+
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+
+    <div class="app-body">
+      <div class="sidebar">
+
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel"><i class="nav-icon fal fa-user-secret"></i> Admin Dashboard</a></li>
+            <!--<li class="nav-item nav-dropdown">
+
+              <a class="nav-link nav-dropdown-toggle"><i class="nav-icon fal fa-exclamation-circle"></i> Available Orders</a>
+
+              <ul class="nav-dropdown-items">
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/solo"><i class="nav-icon fal fa-exclamation-circle"></i> Solo Queue</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/duo"><i class="nav-icon fal fa-exclamation-circle"></i> Duo Queue</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/placements"><i class="nav-icon fal fa-exclamation-circle"></i> Placement Games</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/wins"><i class="nav-icon fal fa-exclamation-circle"></i> Normal Wins</a></li>
+              </ul>
+            </li>-->
+            <li class="nav-item nav-dropdown">
+
+              <a class="nav-link nav-dropdown-toggle"><i class="nav-icon fal fa-exclamation-circle"></i> Orders</a>
+
+              <ul class="nav-dropdown-items">
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/orders/unpaid"><i class="nav-icon fal fa-exclamation-circle"></i> Unpaid Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/orders/paid"><i class="nav-icon fal fa-exclamation-circle"></i> Completed Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/orders/active"><i class="nav-icon fal fa-exclamation-circle"></i> Active Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/orders/waiting"><i class="nav-icon fal fa-exclamation-circle"></i> Waiting Orders</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/boosters"><i class="nav-icon fal fa-exclamation-circle"></i> Booster Accounts</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/referrals"><i class="nav-icon fal fa-exclamation-circle"></i> Referral Codes</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/checkouts"><i class="nav-icon fal fa-exclamation-circle"></i> Checkouts</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <main class="main">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item">
+            <a href="{{ base_url() }}/admin-panel">Admin</a>
+          </li>
+          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+              <a class="btn" href="#">
+                <i class="fal fa-user"></i> Profile</a>
+            </div>
+          </li>
+        </ol>
+
+        <div class="container-fluid">
+          <div class="animated fadeIn">
+
+            <div class="card">
+              <div class="card-body">
+
+                <h1>Current requested Checkouts</h1>
+                <div class="orders">
+
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Booster Username</th>
+                        <th>Booster OP.gg</th>
+                        <th>Requested amount</th>
+                        <th>Booster Paypal</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for checkout in checkouts %}
+
+                        <tr>
+                          <td>{{ checkout.getBoosterUsername(checkout.userId) }}</td>
+                          <td>{{ checkout.getBoosterOpgg(checkout.userId) }}</td>
+                          <td><strong>{{ checkout.payment }}$</strong></td>
+                          <td>{{ checkout.getBoosterPaypal(checkout.userId) }}</td>
+                          <td>
+                            <form action="{{ base_url() }}/admin-panel/markAsPaid" method="post">
+                              <input style="display: none;" type="text" name="id" value="{{ checkout.id }}">
+                              <input style="display: none;" type="text" name="payment" value="{{ checkout.payment }}">
+                              <input style="display: none;" type="text" name="boosterId" value="{{ checkout.userId }}">
+                              <button type="submit" name="button">Mark as Paid</button>
+                            </form>
+                          </td>
+                        </tr>
+
+                      {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+
+                <br>
+                <hr>
+                <br>
+
+                <h1>Paid Checkouts</h1>
+                <div class="orders">
+
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Booster Username</th>
+                        <th>Booster OP.gg</th>
+                        <th>Requested amount</th>
+                        <th>Booster Paypal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for checkout in paidCheckouts %}
+
+                        <tr>
+                          <td>{{ checkout.getBoosterUsername(checkout.userId) }}</td>
+                          <td>{{ checkout.getBoosterOpgg(checkout.userId) }}</td>
+                          <td><strong>{{ checkout.payment }}$</strong></td>
+                          <td>{{ checkout.getBoosterPaypal(checkout.userId) }}</td>
+                        </tr>
+
+                      {% endfor %}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+    <footer class="app-footer">
+      <div>
+        <a href="#">Boost App</a>
+        <span>&copy; 2018 Boost Application</span>
+      </div>
+      <div class="ml-auto">
+        <span>Powered by</span>
+        <a href="#">Boost App</a>
+      </div>
+    </footer>
+
+    <script src="{{ base_url() }}/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/pace-progress/pace.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+{% extends "template/main.twig" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+
+  <div class="contact-container">
+
+    <h1>Reset <span>Password</span></h1>
+    <br>
+
+    <form action="{{ base_url() }}/resetPassword" method="post">
+      <label>New Password</label>
+      <input type="password" name="password" value="" placeholder="New Password">
+      <input style="display: none;" type="text" name="userId" value="{{ user.id }}">
+      <br>
+      <button style="margin: 0px; margin-top: 5px;" class="btn" type="submit" name="button">Update Password</button>
+    </form>
+
+  </div>
+
+{% endblock %}

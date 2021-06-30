@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>Admin Panel</title>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-oi8o31xSQq8S0RpBcb4FaLB8LJi9AT8oIdmS1QldR8Ui7KUQjNAnDlJjp55Ba8FG" crossorigin="anonymous">
+    <link href="{{ base_url() }}/assets/css/style.css" rel="stylesheet">
+    <link href="{{ base_url() }}/assets/css/mystyle.css" rel="stylesheet">
+
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+
+    <div class="app-body">
+      <div class="sidebar">
+
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel"><i class="nav-icon fal fa-user-secret"></i> Admin Dashboard</a></li>
+            <!--<li class="nav-item nav-dropdown">
+
+              <a class="nav-link nav-dropdown-toggle"><i class="nav-icon fal fa-exclamation-circle"></i> Available Orders</a>
+
+              <ul class="nav-dropdown-items">
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/solo"><i class="nav-icon fal fa-exclamation-circle"></i> Solo Queue</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/duo"><i class="nav-icon fal fa-exclamation-circle"></i> Duo Queue</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/placements"><i class="nav-icon fal fa-exclamation-circle"></i> Placement Games</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/booster-panel/orders/wins"><i class="nav-icon fal fa-exclamation-circle"></i> Normal Wins</a></li>
+              </ul>
+            </li>-->
+            <li class="nav-item nav-dropdown">
+
+              <a class="nav-link nav-dropdown-toggle"><i class="nav-icon fal fa-exclamation-circle"></i> Orders</a>
+
+              <ul class="nav-dropdown-items">
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/orders/unpaid"><i class="nav-icon fal fa-exclamation-circle"></i> Unpaid Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/orders/paid"><i class="nav-icon fal fa-exclamation-circle"></i> Completed Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/orders/active"><i class="nav-icon fal fa-exclamation-circle"></i> Active Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/orders/waiting"><i class="nav-icon fal fa-exclamation-circle"></i> Waiting Orders</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/boosters"><i class="nav-icon fal fa-exclamation-circle"></i> Booster Accounts</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/referrals"><i class="nav-icon fal fa-exclamation-circle"></i> Referral Codes</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ base_url() }}/admin-panel/checkouts"><i class="nav-icon fal fa-exclamation-circle"></i> Checkouts</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <main class="main">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Home</li>
+          <li class="breadcrumb-item">
+            <a href="{{ base_url() }}/admin-panel">Admin</a>
+          </li>
+          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+              <a class="btn" href="#">
+                <i class="fal fa-user"></i> Profile</a>
+            </div>
+          </li>
+        </ol>
+
+        <div class="container-fluid">
+          <div class="animated fadeIn">
+
+            <div class="card">
+              <div class="card-body">
+
+                <h1>{{ order_state }} orders</h1>
+
+                <div class="orders">
+                  {% if order_state == "unpaid" %}
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Payment</th>
+                          <th>Order Type</th>
+                          <th>Player Rank</th>
+                          <th>Booster Goal</th>
+                          <th>W/L Ratio</th>
+                          <th>Booster Paypal</th>
+                          <th>Mark as Paid</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for order in orders %}
+
+                          {% set procentage = order.getBoosterProcentage(order.order_taken_by)|number_format %}
+
+                          <tr>
+                            <td><strong>{{ order.price * (procentage / 100) }}$</strong> With {{ procentage }}%</td>
+                            <td>{{ order.order_type }}</td>
+                            <td>{{ order.currentRank }}</td>
+                            <td>{{ order.desiredRank }}</td>
+                            <td>
+                              {{ order.getWinLoss(order.id) }}
+                            </td>
+                            <td>
+                              {{ order.getBoosterPaypal(order.order_taken_by) }}
+                            </td>
+                            <td>
+                              <form class="" action="{{ base_url() }}/admin-panel/markAsPaid" method="post">
+                                <input style="display: none;" type="text" name="orderId" value="{{ order.id }}">
+                                <input style="display: none;" type="text" name="price" value="{{ order.price }}">
+                                <input style="display: none;" type="text" name="procentage" value="{{ procentage }}">
+                                <input style="display: none;" type="text" name="order_type" value="{{ order.order_type }}">
+                                <input style="display: none;" type="text" name="start_rank" value="{{ currentRank }} {{ currentDivision }}">
+                                <input style="display: none;" type="text" name="end_rank" value="{{ desiredRank }} {{ desiredDivision }}">
+                                <input style="display: none;" type="text" name="win_loss" value="{{ order.getWinLoss(order.id) }}">
+                                <input style="display: none;" type="text" name="booster_paypal" value="{{ order.getBoosterPaypal(order.order_taken_by) }}">
+                                <button type="submit" name="button">Mark as paid</button>
+                              </form>
+                            </td>
+                          </tr>
+
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  {% endif %}
+
+                  {% if order_state == "paid" %}
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Payment</th>
+                          <th>Paid Procentage</th>
+                          <th>Order Type</th>
+                          <th>Player Rank</th>
+                          <th>Booster Goal</th>
+                          <th>W/L Ratio</th>
+                          <th>Booster OP.GG</th>
+                          <th>Booster Username</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for order in orders %}
+
+                          <tr>
+                            <td>{{ order.price }}$</td>
+                            <td>{{ order.price * (order.procentage / 100) }}$ {{ order.procentage }}%</td>
+                            <td>{{ order.order_type }}</td>
+                            <td>{{ order.start_rank }}</td>
+                            <td>{{ order.end_rank }}</td>
+                            <td>{{ order.win_loss }}</td>
+                            <td>{{ order.getBoosterOpgg(order.boosterId) }}</td>
+                            <td>{{ order.getBoosterUsername(order.boosterId) }}</td>
+                          </tr>
+
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  {% endif %}
+
+                  {% if order_state == "active" %}
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Payment</th>
+                          <th>Order Type</th>
+                          <th>Player Rank</th>
+                          <th>Booster Goal</th>
+                          <th>W/L Ratio</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for order in orders %}
+
+                          <tr>
+                            <td>{{ order.price }}$</td>
+                            <td>{{ order.order_type }}</td>
+                            <td>{{ order.currentRank }}</td>
+                            <td>{{ order.desiredRank }}</td>
+                            <td>
+                              {{ order.getWinLoss(order.id) }}
+                            </td>
+                          </tr>
+
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  {% endif %}
+
+                  {% if order_state == "waiting" %}
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Payment</th>
+                          <th>Order Type</th>
+                          <th>Player Rank</th>
+                          <th>Booster Goal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for order in orders %}
+                          <tr>
+                            <td><strong>{{ order.price }}$</td>
+                            <td>{{ order.order_type }}</td>
+                            <td>{{ order.currentRank }}</td>
+                            <td>{{ order.desiredRank }}</td>
+                          </tr>
+
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+    <footer class="app-footer">
+      <div>
+        <a href="#">Boost App</a>
+        <span>&copy; 2018 Boost Application</span>
+      </div>
+      <div class="ml-auto">
+        <span>Powered by</span>
+        <a href="#">Boost App</a>
+      </div>
+    </footer>
+
+    <script src="{{ base_url() }}/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/pace-progress/pace.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="{{ base_url() }}/node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
+  </body>
+</html>

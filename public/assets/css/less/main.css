@@ -1,0 +1,38 @@
+.select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.select .ranks-select {
+  display: flex;
+  flex-direction: row;
+  width: 850px;
+}
+.select .ranks-select .rank {
+  text-align: center;
+}
+.select .ranks-select .rank .rank-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #0D1E30;
+  width: 270px;
+}
+.select .ranks-select .flag-end {
+  background: #0D1E30;
+  width: 270px;
+  height: 40px;
+  -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 51% 20%, 0 100%, 0 0);
+  clip-path: polygon(50% 0%, 100% 0, 100% 100%, 51% 20%, 0 100%, 0 0);
+}
+.select .ranks-select .middle-icon {
+  flex: 1;
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  opacity: 0.4;
+  color: #42a030;
+}
